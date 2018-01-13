@@ -21,7 +21,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var cfgFile string
+var cookieHashKey string
+var cookieBlockKey string
+var cookieName string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -46,6 +48,7 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	rootCmd.PersistentFlags().StringVarP(&cfgFile, "hash-key", "k", "", "Specifies the hash-key which is used for the securecookie (can also be set with the env variable HASH_KEY)")
-	rootCmd.PersistentFlags().StringVarP(&cfgFile, "block-key", "b", "", "Specifies the block-key which is used for the securecookie (can also be set with the env variable BLOCK_KEY)")
+	rootCmd.PersistentFlags().StringVarP(&cookieName, "name", "n", "", "Specifies the name of the securecookie (can also be set with the env variable COOKIE_NAME) (mandatory)")
+	rootCmd.PersistentFlags().StringVarP(&cookieHashKey, "hash-key", "k", "", "Specifies the hash-key which is used for the securecookie (can also be set with the env variable COOKIE_HASH_KEY) (mandatory)")
+	rootCmd.PersistentFlags().StringVarP(&cookieBlockKey, "block-key", "b", "", "Specifies the block-key which is used for the securecookie (can also be set with the env variable COOKIE_BLOCK_KEY) (optional)")
 }

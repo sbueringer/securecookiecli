@@ -16,6 +16,8 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/gorilla/securecookie"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -26,20 +28,55 @@ var decryptCmd = &cobra.Command{
 	Short: "Decrypts a securecookie",
 	Long: ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("decrypt called")
+		if args != nil && len(args) == 1 {
+			if cookieName == "" {
+				cookieName = os.Getenv("COOKIE_NAME")
+			}
+			if cookieName == "" {
+				cmd.Printf("Error: cookie name not set\n\n")
+				cmd.Help()
+				return
+			}
+
+			if cookieHashKey == "" {
+				cookieHashKey = os.Getenv("COOKIE_HASH_KEY")
+			}
+			if cookieHashKey == "" {
+				cmd.Printf("Error: cookie hash key not set\n\n")
+				cmd.Help()
+				return
+			}
+		
+			if cookieBlockKey  == "" {
+				cookieBlockKey = os.Getenv("COOKIE_BLOCK_KEY")
+			}
+		
+			decrypt(args[0])
+		} else {
+			cmd.Printf("Error: argument count is not 1\n\n")
+		    cmd.Help()
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(decryptCmd)
+}
 
-	// Here you will define your flags and configuration settings.
+func decrypt(encryptedContent string){
+	var secureCookie *securecookie.SecureCookie
+	if cookieBlockKey == "" {
+		secureCookie = securecookie.New([]byte(cookieHashKey), nil)
+	} else {
+		secureCookie = securecookie.New([]byte(cookieHashKey), []byte(cookieBlockKey))
+	}
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// decryptCmd.PersistentFlags().String("foo", "", "A help for foo")
+	var content string
+	err := secureCookie.Decode(cookieName, encryptedContent, &content)
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// decryptCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(content)
 }
