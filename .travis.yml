@@ -18,8 +18,8 @@ deploy:
   provider: releases
   api_key: $GITHUB_RELEASE_TOKEN
   file:
-    - $TRAVIS_BUILD_DIR/securecookiecli
-    - $TRAVIS_BUILD_DIR/securecookiecli.exe
+    - dist/securecookiecli
+    - dist/securecookiecli.exe
   overwrite: true
   skip_cleanup: true
   on:
