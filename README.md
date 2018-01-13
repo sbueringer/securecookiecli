@@ -17,7 +17,7 @@ Securecookiecli is build with [Cobra](https://github.com/spf13/cobra) so the CLI
 To print a description what securecookiecli can do, just execute:
 ```bash
 $ ./securecookiecli
-securecookiecli encrypts/ decrypts securecookies
+securecookiecli encrypts & decrypts securecookies
 
 Usage:
   securecookiecli [command]
