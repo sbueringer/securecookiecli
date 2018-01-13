@@ -28,17 +28,10 @@ docker run -e GOOS=windows -e GOARCH=amd64 -e GOPATH=/gopath -e CGO_ENABLED=0 \
 
 if [ "$TRAVIS" == "true" ]
 then
-  echo "Downloading upx"
-  curl -L -O https://github.com/upx/upx/releases/download/v3.93/upx-3.93-amd64_linux.tar.xz
-  tar xvf upx-3.93-amd64_linux.tar.xz
-  export PATH=$(pwd)/upx-3.93-amd64_linux:$PATH
-
-  echo "Using upx on securecookiecli"
-  upx ./dist/securecookiecli
-
-  echo "Using upx on securecookiecli.exe"
-  upx ./dist/securecookiecli.exe
+  echo "Running on travis-ci"
 else
+  echo "Running not on travis-ci"
+
   sudo chown fedora dist/securecookiecli
   sudo chmod +x dist/securecookiecli
 fi
