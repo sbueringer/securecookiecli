@@ -1,0 +1,26 @@
+sudo: required
+
+services: 
+- docker
+
+language: go
+
+go:
+  - 1.9.x
+
+before_install:
+- chmod +x ./build.sh
+
+install:
+- ./build.sh
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_RELEASE_TOKEN
+  file:
+    - ./securecookiecli
+    - ./securecookiecli.exe
+  overwrite: true
+  skip_cleanup: true
+  on:
+    tags: true
