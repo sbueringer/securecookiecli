@@ -1,4 +1,4 @@
-# Kubernetes RBACQ
+# Securecookiecli
 
 [![Build Status](https://travis-ci.org/sbueringer/securecookiecli.svg?branch=master)](https://travis-ci.org/sbueringer/securecookiecli)
 
