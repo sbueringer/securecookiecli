@@ -14,6 +14,8 @@ Go to the [releases](https://github.com/sbueringer/securecookiecli/releases) pag
 
 Securecookiecli is build with [Cobra](https://github.com/spf13/cobra) so the CLI is build in a familiar way (Cobra is also used in Docker and Kubernetes).
 
+**Attentation**: securecookiecli encrypts with the JSONSerialzer and can only decrypt cookies encrypted with the JSONSerializer.
+
 To print a description what securecookiecli can do, just execute:
 ```bash
 $ securecookiecli

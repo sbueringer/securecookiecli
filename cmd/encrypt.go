@@ -70,6 +70,7 @@ func encrypt(content string){
 	} else {
 		secureCookie = securecookie.New([]byte(cookieHashKey), []byte(cookieBlockKey))
 	}
+	secureCookie.SetSerializer(securecookie.JSONEncoder{})
 
 	encryptedCookie, err := secureCookie.Encode(cookieName, content)
 

@@ -70,13 +70,17 @@ func decrypt(encryptedContent string){
 	} else {
 		secureCookie = securecookie.New([]byte(cookieHashKey), []byte(cookieBlockKey))
 	}
+	secureCookie.SetSerializer(securecookie.JSONEncoder{})
 
-	var content string
+	var content map[string]interface{}
 	err := secureCookie.Decode(cookieName, encryptedContent, &content)
 
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(content)
+	fmt.Println("secure cookie content:")
+	for key, value := range content{
+		fmt.Printf("%s: %v\n", key, value)
+	}	
 }
